@@ -693,9 +693,11 @@ There is no semicolon after the right brace that ends a block.
 
 ## Type Conversion
 
-Type conversion means change of an the data type of an object or expression to another compatible type.
+Type conversion means change of the data type of an object or expression to another compatible type.
 
 If the object or expression has greater range and precision than the type it's being converted to, then the range and precision are stripped off to match the target type.
+
+Following are the two types of conversion that may happen:
 
 ### Implicit Conversion
 
@@ -740,9 +742,9 @@ Following are some scenarios where implicit conversions takes place:
   					 // char* is expected
   ```
 
-### Casting / Explicit Conversion
+###  Explicit Conversion /Casting
 
-If type conversion of an object or expression is explicitly coded in the program, then its called explicit conversion or casting.
+If type conversion of an object or expression is explicitly coded in the program (forced by the programmer), then its called explicit conversion or casting.
 
 Explicit type conversion is done using the cast operator `()`.
 

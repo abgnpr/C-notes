@@ -207,15 +207,209 @@ switch (expression) {
 
 ### Loops
 
+Loop statements are used to repeat a statement or a block depending upon some condition.
+
 #### `for`
+
+Executes a `statement` or a block of statements (loop body) repeatedly until the value of `cond_expression` becomes false. The test takes place before each iteration.
+
+```c
+for (init_clause; cond_expression; iteration_expression)
+    statement;
+
+// OR
+
+for (init_clause; cond_expression; iteration_expression) {
+    statement1;
+    statement2;
+}
+```
+
+**Working:**
+
+- As soon as the `for` statement is seen, the`init_clause` is executed. It may be an expression or a declaration
+
+  - If it is an expression, it is evaluated once and its result is discarded.
+
+  - If it is a declaration, it is in scope in the entire loop body, including the remainder of `init_clause`, the entire `cond_expression`, the entire `iteration_expression` and the entire loop body.
+
+- `cond_expression` is evaluated next.
+
+  - If it evaluates to true, execution of the loop body follows.
+  - If the result of the expression is zero, the loop statement is exited immediately.
+
+- `iteration_expression` is evaluated after the loop body and its result is discarded. 
+
+- After evaluating `iteration_expression`, control is transferred to `cond_expression`.
+
+**Example:**
+
+```c
+/* prints numbers 1 to 10 */
+for (int i = 1; i <= 10; ++i) {
+    printf("%d ");
+}
+```
+
+**Note:**
+
+- `init_clause`, `cond_expression`, and `iteration_expression` are all optional:
+
+  ```c
+  for(;;) {
+      printf("endless loop!");
+  }
+  ```
+
+- `statement` is not optional, but it may be a null statement:
+
+  ```c
+  for(int n = 0; n < 10; ++n, printf("%d\n", n))
+      ; // null statement
+  ```
+
+- If the execution of the loop needs to be terminated at some point, a `break` statement can be used anywhere within the loop body. The continue statement used anywhere within the loop body transfers control to `iteration_expression`.
+
+- `for` is used when we want to keep the loop control statements close together and visible at the top of the loop. The advantage of keeping loop control centralised are obvious when there are several nested loops.
+
+- It is possible to place multiple expressions in various parts of `for` statement using the comma `,` operator[^*], for example to process two indices in parallel.
+
+  ```c
+  #include<string.h>
+  
+  /* reverse: reverse string s in place */
+  void reverse(char s[]) {
+      char temp;
+      int i, j;
+      for (i = 0, j = strlen(s) - 1; i < j; i++, j--) {
+          temp = s[i];
+  		s[i] = s[j];
+          s[j] = c;
+      }
+  }
+  ```
+
+  [^*]:A pair of expressions separated by a comma is evaluated left to right, and the type and value of the result are the type and value of the right operand.
+
+  
 
 #### `while`
 
+Executes a `statement` or a block of statements (also called the loop body) repeatedly until the value of `expression` (also called controlling expression) becomes false. The test takes place before each iteration.
+
+```c
+while (expression)
+    statement;
+
+// OR
+
+while (expression) {
+    statement1;
+    statement2;
+}
+```
+
+- The repetition occurs regardless of whether the loop body is entered normally or by a `goto` into the middle of statement.
+
+- The evaluation of expression takes place *before* each execution of statement (unless entered by a `goto`).
+
+- If the execution of the loop needs to be terminated at some point, `break` statement can be used as a terminating statement. If the execution of the loop needs to be `continued` at the end of the loop body, continue statement can be used as a shortcut.
+
+- An endless loop can be created like this
+
+  ```c
+  while (1) {
+      statement;
+  }
+  ```
+
+  
+
 #### `do  –  while`
+
+Executes a `statement` or a block of statements (loop body) repeatedly until the value of `expression` becomes false. The test takes place after each iteration.
+
+```c
+do statement while (expression);
+
+// OR
+
+do {
+    statement1;
+    statement2;
+} while (expression);
+```
+
+- The repetition occurs regardless of whether the loop body is entered normally or by a `goto` into the middle of statement.
+
+- The evaluation of expression takes place *after* each execution of statement.  (whether entered normally or by a `goto`).
+
+- If the execution of the loop needs to be terminated at some point, `break` statement can be used as terminating statement. If the execution of the loop needs to be continued at the end of the loop body, `continue` statement can be used as a shortcut.
+
+- An endless loop can be created like this
+
+  ```c
+  do {
+  	statement;
+  } while (1);
+  ```
+
+  
 
 ### Jumps
 
-- `break`
-- `continue`
-- `goto`
+#### `break`
+
+Used to terminate the enclosing for, while or do-while loop or switch statement.
+
+`break;`
+
+- It appears only within the statement of a loop body (while, do, for) or within the statement of a switch.
+
+- After this statement the control is transferred to the statement or declaration immediately following the enclosing loop or switch.
+
+- A break statement cannot be used to break out of multiple nested loops. The `goto` statement may be used for this purpose.
+
+- Usage tip: Use when it is otherwise awkward to ignore the remaining portion of the loop using conditional statements.
+
+- Example
+
+  ```c
+  // prints integers 10 to 5
+  int n = 10;
+while (1) {
+      printf("%d ", n);
+      if (n == 5)
+          break;
+  }
+  ```
+  
+  
+
+#### `continue`
+
+Causes the remaining portion of the enclosing for, while or do-while loop body to be skipped.
+
+`continue;`
+
+- It appears only within the loop body of for, while, and do-while loops.
+
+- The `continue` statement causes a jump, as if by `goto`, to the end of the loop body.
+
+- Usage tip: Use when it is otherwise awkward to ignore the remaining portion of the loop using conditional statements.
+
+- Example
+
+  ```c
+  // Prints all numbers from 1 to 10, except 6
+  for (int i = 1; i <= 10; ++i) {
+    if (i == 6)
+          continue;
+      printf("%d ", i) // skipped when i = 6
+  }
+  ```
+  
+  
+
+#### `goto`
 
