@@ -8,9 +8,9 @@ Array is an indexed sequence of fixed number of contiguously allocated nonempty 
 
 ## Declaration
 
-Before using an array, we need to declare it using a declarator. The declarator states the array's name, size and type.
+Before using an array, we need to declare it. In a declaration, we state the array's name, size and type.
 
-Declarator Syntax
+Syntax
 
 `type-specifier array-name[expression];`
 
@@ -48,12 +48,12 @@ If expression in an array declarator is an integer constant expression with a va
 // integer constants are constant expressions
 int n[10];
 
-// sizeof is a constant expression
-char o[sizeof(double)];
-
 // enum constants are constant expressions
 enum { MAX_SZ=100 };
 int n[MAX_SZ];
+
+// sizeof is a constant expression
+char o[sizeof(double)];
 ```
 
 ### Variable Length Array (VLA)
@@ -107,11 +107,7 @@ The `sizeof` operator will throw an error for array`x[]`, but it will work fine 
 
 Initialisation means declaring a variable and assigning value(s) to it at the same time.
 
-We initialise arrays using brace enclosed lists.
-
-When an array is initialised with a brace-enclosed list of initializers, the first initializer in the list initialises the array element at index zero, and each subsequent initializer initialises the array element at index one greater than the one initialised by the previous initializer.
-
-Examples
+We initialise arrays using brace enclosed lists `{...}`.
 
 ```c
 int x[] = {1,2,3}; // x has type int[3] and holds 1,2,3
@@ -119,10 +115,12 @@ int y[5] = {1,2,3}; // y has type int[5] and holds 1,2,3,0,0
 int z[3] = {0}; // z has type int[3] and holds all zeroes
 ```
 
+When an array is initialised with a brace-enclosed list of initializers, the first initializer in the list initialises the array element at index zero, and each subsequent initializer initialises the array element at index one greater than the one initialised by the previous initializer.
+
 It's an error to provide more initializers than elements when initialising an array of known size (except when initialising character arrays from string literals).
 
 ```c
-int n[3] = {10, 20, 30, 40}; // error: number of characters > size
+int n[3] = {10, 20, 30, 40}; // error: number of characters > array size
 ```
 
 ## Access
@@ -143,7 +141,7 @@ int n[3] = {10, 20, 30, 40}; // error: number of characters > size
 
 ## One Dimensional Array
 
-A one-dimensional array (or single dimension array) is a linear array. Accessing its elements involves a single subscript which can either represent a row or column index.
+A one-dimensional array (or single dimension array) is a linear array, which means that its elements exist one after another in memory. Accessing its elements involves a single subscript.
 
 ![array](3 Arrays.assets/array.jpg)
 
@@ -259,8 +257,6 @@ int s1 = sizeof arr / sizeof int;
 int s2 = sizeof arr / sizeof arr[0];
 int s3 = sizeof arr /  *arr;
 ```
-
-
 
 ## Character Array (String)
 

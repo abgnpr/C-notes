@@ -1,6 +1,6 @@
 # Basics
 
-<div style="page-break-after: always; break-after: page;"></div>
+---
 
 ## Console I/O
 

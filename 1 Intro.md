@@ -587,27 +587,36 @@ Space, horizontal and vertical tab, newline, form feed and carriage return are t
 
 ## Declaration
 
-A declaration introduces one or more identifiers into the program and specifies their meaning and properties. 
+A declaration introduces one or more identifiers (variables) into the program and specifies their meaning and properties. It may appear in any scope.
 
-Declarations may appear in any scope. 
+Example: consider this declaration,
 
-Each declaration ends with a semicolon (just like a statement) and consists of two distinct parts:
+`int i = 3;`
 
-`specifiers-and-qualifiers declarators-and-initializers ;`
+This declaration tells the compiler to:
+
+- Reserve space in memory to hold an integer value of type `int`. (specifier)
+- Associate the name `i` with this memory location. (declarator)
+- Store the value 3 at this location. (optional initializer)
+
+Formally, each declaration consists of two distinct parts:
+
+`specifiers-and-qualifiers` `declarators-and-initializers` `;`
 
 where,
 
-- `specifiers-and-qualifiers` are a white space separated list of:
-  - type specifiers:
-    - `void`
-    - the name of an arithmetic type
-    - the name of an atomic type
-    - a name earlier introduced by a typedef declaration
-    - struct, union, or enum specifier
-  - zero or one storage-class specifiers: `typedef`, `auto`, `register`, `static`, `extern`, `thread_local`
-  - zero or more type qualifiers: `const`, `volatile`, `restrict`, `_Atomic`, zero or more function specifiers: `inline`, `_Noreturn`
-  - zero or more alignment specifiers: `_Alignas`
-- `declarators-and-initializers` are a comma-separated list of declarators (each declarator provides additional type information and/or the identifier to declare). Declarators may be accompanied by initializers. 
+- `specifiers-and-qualifiers` are a list of type specifiers, type qualifiers and storage-class specifiers.
+- `declarators-and-initializers` are a comma-separated list of declarators (the variables we are declaring). They may be accompanied by initializers.
+
+An examples of declaration with parts labelled:
+
+```c
+extern long int a = 10, b = 20;
+// |    |    |  ^-------^------ declarators with initialization
+// |    |	 |_type specifier
+// |    |_type qualifier
+// |_storage class specifier
+```
 
 ## Expressions
 

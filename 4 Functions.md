@@ -1,6 +1,6 @@
 # Functions
 
-A function is a construct that associates a compound statement (the function body) with an identifier (the function name) and we can execute this compound statement by using the identifier.
+A function is a construct that associates a compound statement (the function body) with an identifier (the function name). When we want to execute the function, we call it using its name and then the steps given in its body are performed.
 
 Using a function is like hiring a person to do a specific job for you. Sometimes the interaction with this person is simple; sometimes it's complex.
 
@@ -376,9 +376,9 @@ void main(void) {
 
 Pass by reference is really helpful when we have to pass around big objects like arrays. Arrays can be quite large and passing them 'by value' would hamper performance since each pass would require the array to be copied. Hence C does not allow passing arrays 'by value'.
 
-That leaves us with pass by reference. Since the name of an array is a pointer to its first element, we can pass its value to other functions to serve as a reference for the array. 
+That leaves us with pass by reference. Since the name of an array is a pointer to its first element, we can pass it to other functions to serve as a reference for the array.
 
-However, the passed reference won't give the array size when `sizeof` is used on it inside the called function, so we'll have to supply the array size with along with the reference.
+However, the passed reference won't give the array size on using `sizeof`  inside the called function, so we must supply the array size to the function as well.
 
 Example
 
@@ -475,7 +475,7 @@ Output
 
 Next we have a program where we apply recursion to find the factorial of a number.
 
-Recursive definition of a factorial is `factorial(n) = n x factorial(n-1)` where the base case is `factorial(1) = 1`.
+Recursive definition of a factorial is `factorial(n) = n x factorial(n-1)` with the base case `factorial(1) = 1`.
 
 Implementation
 
