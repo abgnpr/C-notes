@@ -80,9 +80,19 @@ where,
 
 De-referencing helps us to access and modify the values kept at an address pointed to by a pointer. To de-reference a pointer, we use the de-reference operator `*`.
 
- Suppose we have an integer variable `a` with value 10, and we have stored the address of `a` in a pointer variable named `p`. Now how do we use the address stored in `p` to access the variable `a`. In other words we are trying to access the object `a` using its reference. We can 
+Suppose we have an integer variable `a` with value `10`,
 
-Using the de-reference operator, we first print the value stored at the address pointed by `p` (which is `a`'s value), and then we change the value stored at that address by assigning `20` to de-referenced `p`. This changes the content of  `a` which we see on printing `a`'s value .
+`int a = 10;`
+
+and we have stored the address of `a` in a pointer variable named `p`. 
+
+`int *p = &a;`
+
+Now how do we use the address stored in `p` to access the variable `a`? In other words we want to access the object `a` using its reference.
+
+We do this by prefixing the de-reference operator `*` to the pointer variable `p`. We write `*p` which means the 'object at location `p`', that is `a`. Using `*p` we can do all operations that we could with `a`. 
+
+As an example let's examine the following code. 
 
 ```c
 #include <stdio.h>
@@ -93,10 +103,13 @@ void main() {
   // access
   printf("%d\n", *p); // -> 10
 
-  *p = 20; // modify; changes the value in a
+  // modify
+  *p = 20; // changes the value stored in a
   printf("%d\n", a); // -> 20
 }
 ```
+
+Here, we first print the value stored at the address pointed by `p` (which is `a`'s value), and then we change the value stored at that address by assigning `20` to de-referenced `p`. This changes the content of  `a` which we see by printing `a`'s value.
 
 ## Operators
 
@@ -124,15 +137,15 @@ Null pointers can indicate the absence of an object or can be used to indicate o
 
 ## Array Pointers
 
-In C, there is a strong relationship between pointers and arrays. The name of an array is itself a pointer to its first (0th) element. So we can access, modify and traverse the array using pointer arithmetic. Basically, any operation that can be achieved by array sub-scripting can also be done with pointers. The pointer operation will in general be faster.
+In C, there is a strong relationship between pointers and arrays. The name of an array is itself a pointer to its first (0th) element, so we can access, modify and traverse an array using pointer arithmetic. Basically, any operation that can be achieved by array sub-scripting can also be done with pointers. The pointer operation will in general be faster.
 
 ### Access and Modification
 
-For example, lets take the array `int a[] = {5, 10, 15, 20};`. 
+Pointers can be used to access and modify array members. For example, lets take the array `int a[] = {5, 10, 15, 20};`.
 
-To access the 3rd array element using the sub-script notation we write `a[2]`. Same can be done using pointers by writing `*(a+2)`, which is a way of saying — de-reference the address that is 2 address units ahead of the base address `a`. 
+To *access* the 3rd array element using the sub-script notation we write `a[2]`. Same can be done using pointers by writing `*(a+2)`, which is a way of saying — de-reference the address that is 2 address units ahead of the base address `a`. 
 
-The table below shows side by side comparison of accessing elements of `a` using subscript `[]` and pointers.
+The table below shows side by side comparison of accessing elements by subscripts and pointers.
 
 | subscript notation |  pointer notation  | Value |
 | :----------------: | :----------------: | :---: |
@@ -141,21 +154,78 @@ The table below shows side by side comparison of accessing elements of `a` using
 |       `a[2]`       |     `*(a + 0)`     |  15   |
 |       `a[3]`       |     `*(a + 3)`     |  20   |
 
-Using the same access notation we can also modify the array values. Example:
+Using the same access notation we can also *modify* the array values. For example, `*(a + 1) = 100` will be equivalent to `a[1] = 100`. After this operation `a` becomes `{5, 100, 15, 20}`.
 
-`*(a + 1) = 100` will be equivalent to `a[1] = 100`
+### Traversal
 
-After this operation `a` becomes `{5, 100, 15, 20}`.
+If `p` is a pointer to some element of an array, then `p++` increments `p` to point to the next element, and `p += i` increments it to point `i` elements beyond where it currently does. We illustrate this in the following code.
 
+```c
+#include <stdio.h>
+void main() 
+{
+  int a[] = {5, 10, 15, 20};
+  
+  // a pointer to the first element
+  int *p = &a[0];
 
+  p++; // increment
+  printf("%d\n", *p); // -> 10
 
-If `p` is a pointer to some element of an array, then `p++` increments `p` to point to the next element, and `p+=1` increments it to point `i` elements beyond where it currently does.
+  p += 2; // hop
+  printf("%d\n", *p); // -> 20
+}
+```
 
 ## Passing Array to Function
 
 
 
 ## Pointers to String
+
+In C, we cannot store strings in variables, but we can store a reference to the string in a pointer variable.
+
+When we write something like this,
+
+`char *s = "That's what she said!"`
+
+we assign to variable `s` a pointer (reference) to the first element of the string `"That's what she said!"`.
+
+Something similar happens implicitly in a function call with string arguments. Like in this function call,
+
+`printf("Hello world\n");`
+
+a pointer to the beginning of the character array is passed to `printf`.
+
+However, there is a slight difference between a string literal reference and a character array declaration. Consider these two definitions:
+
+```c
+// a_msg is a character array
+int a_msg[] = "That's what she said.";
+```
+
+
+
+```c
+// P_msg is a string literal reference
+int *p_msg = "That's what she said.";
+```
+
+`a_msg` is an array just big enough to hold the sequence of characters and `'\0'` that initialises it. Individual characters within the array may be changed and `a_msg` will always refer to the same storage.
+
+```c
+int a_msg[] = "That's what she said.";
+a_msg[5] = 'z'; // -> "That'z what she said."
+```
+
+On the other hand, `p_msg` is a pointer, initialised to point to a string literal; the pointer may subsequently be modified to point elsewhere, but **the result is undefined if you try to modify the string constant using the pointer**.
+
+```c
+int *p_msg = "That's what she said.";
+p_msg[5] = 'z'; // error: seg fault
+```
+
+
 
 ## Pointers to Structure
 

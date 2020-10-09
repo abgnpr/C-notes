@@ -260,7 +260,9 @@ int s3 = sizeof arr /  *arr;
 
 ## Character Array (String)
 
-A character array is a null terminated sequence of characters. Its type may be any of the following: `char`, `signed char`,  or `unsigned char`.
+A *string literal*, written as `"A cat"`, and a character array, written as `{'A', ' ', 'c', 'a', 't'}`, are both null terminated sequences of characters. Internally both are same. They end with the null character `'\0'` so that programs can find the end. Because of null, their length in storage is one more than the number of characters.
+
+They may be of any of the following types: `char`, `signed char`,  or `unsigned char`.
 
 ![chararr](3 Arrays.assets/chararr.png)
 
