@@ -268,7 +268,7 @@ They may be of any of the following types: `char`, `signed char`,  or `unsigned 
 
 ### Declaration
 
-Declaration is the same as it is for other types.
+Declaration is the same as it is for other array types.
 
 ```c
 char s1[4]; // declares a character array of length 4
@@ -298,12 +298,12 @@ Character arrays can be initialised in two ways.
 
 Some commonly used functions are listed here:
 
-- `strcat` - concatenate two strings
+- `strcat` - concatenate two strings :heavy_check_mark:
 - `strchr` - scans to find a particular character
 - `strstr` - scans to find a sub-string
-- `strcmp` - compare two strings
-- `strcpy` - copy a string
-- `strlen` - get string length
+- `strcmp` - compare two strings :heavy_check_mark:
+- `strcpy` - copy a string :heavy_check_mark:
+- `strlen` - get string length :heavy_check_mark:
 - `strncat` - concatenate one string with part of another
 - `strncmp` - compare parts of two strings
 - `strncpy` - copy part of a string
@@ -311,7 +311,17 @@ Some commonly used functions are listed here:
 - `strupr` - coverts string to uppercase
 - `strrev` - returns the reversed string
 
-The string library is a large one and basically it has three types of functions:
+We'll see a little more about the ticked ones.
+
+#### `strcat`
+
+#### `strcmp`
+
+#### `strcpy`
+
+#### `strlen`
+
+The string library is a large one, and basically, it has three types of functions:
 
 - the `str` functions manipulate null-terminated sequences of characters;
 - the `strn` functions manipulate sequences of non-null characters.

@@ -12,9 +12,9 @@ Structures allow full control over data organisation. In a structure definition,
 
 We define a structure by using the `struct` keyword followed by a name (optional) and a parenthesised list of member declarations.
 
-`struct name(optional) {  member-declaration-list }`
+`struct name(optional) {  member-declaration-list };`
 
-As an example, let's define a type that represents an item on an e-commerce website.
+As an example, let's define a structure that represents an item on an e-commerce website.
 
 ```c
 struct Item // name
@@ -28,11 +28,12 @@ struct Item // name
 };
 ```
 
-The semicolon after the closing brace is necessary.
+Some points:
 
-A structure definition reserves no storage; it merely describes a template or shape of a structure.
-
-We can define structures anywhere in a program.
+- The semicolon after the closing brace is necessary.
+- A structure definition reserves no storage; it merely describes a template or shape of a structure.
+- We can define structures anywhere in a program.
+- Within a struct object, addresses of its elements increase in order in which the members were defined.
 
 ## Declaration of `struct` Variable
 
@@ -50,7 +51,6 @@ The following example shows declaration using the first syntax, where the struct
 
 ```c
 struct Item iPhone_11, detergent, peanut_butter;
-
 ```
 
 This is syntactically analogous to `int a, b, c;`. It declares `iPhone_11`, `detergent` and `peanut_butter` to be variables of the type `Item` and causes space to be set aside for them.
@@ -94,6 +94,7 @@ There are two ways of initialising structure variables.
    ```c
    // Initialisation with declaration
    
+   // at the time of definition
    struct Thing { 
        int attrib1;
        char attrib2;
@@ -101,9 +102,8 @@ There are two ways of initialising structure variables.
    } A = {100, 'F'}, 
      B = {10, 'A'};
    
-   // oR
+   // OR separately
    struct Thing C = { 20, 'D'};
-   
    ```
 
 2. piece-wise
@@ -129,6 +129,8 @@ There are two ways of initialising structure variables.
 
 The values of a structure variable can be assigned to another structure variable of the same type using the assignment operator. It is not necessary to copy structure members one by one.
 
+In the following example, we declare two struct variables `A` and `B` and initialise the members of `A`. Then, by just using an assignment on the struct variables, we copy all of `A`'s data into `B`, which is verified by printing the members of B.
+
 ```c
 struct {
     int property1;
@@ -138,6 +140,7 @@ struct {
 A.property1 = 10;
 A.property2 = 12.25;
 
+// A gets copied into B
 B = A;
 
 printf("%d\n", B.property1); // -> 10
@@ -146,7 +149,7 @@ printf("%f\n", B.property2); // -> 12.25
 
 ## Structure Pointer
 
-Structure pointers are pointers pointing to structures. We can obtain it using the 'address of' `&` operator on a structure variable and store it in a pointer variable of the same structure type.
+A structure pointer is a pointer pointing to a structure, meaning that it is the address of the beginning of a structure. We can obtain it using the 'address of' `&` operator on a structure variable and store it in a pointer variable of the same structure type.
 
 ```c
 struct Thing {
@@ -155,10 +158,9 @@ struct Thing {
 
 struct Thing t = { 10, 20 };
 struct Thing *p = &t; // p refers to t
-
 ```
 
-Note: Within a struct object, addresses of its elements increase in order in which the members were defined. Therefore, a pointer to a struct can be cast to a pointer to its first member. Likewise, a pointer to the first member of a struct can be cast to a pointer to the enclosing struct. 
+Note: A pointer to a struct can be cast to a pointer to its first member. Likewise, a pointer to the first member of a struct can be cast to a pointer to the enclosing struct. 
 
 ## Member Access
 

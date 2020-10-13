@@ -12,6 +12,8 @@ Console I/O can be divided in two categories — formatted and un-formatted.
 
 Formatted I/O functions let us fix the format of input and output.  `printf` and `scanf` are two most commonly used functions of this type.
 
+
+
 #### `printf()`
 
 `printf` function loads the data from the given locations (variables), converts them to character string equivalents and writes the results to `stdout`.

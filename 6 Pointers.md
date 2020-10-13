@@ -151,7 +151,7 @@ The table below shows side by side comparison of accessing elements by subscript
 | :----------------: | :----------------: | :---: |
 |       `a[0]`       | `*a` or `*(a + 0)` |   5   |
 |       `a[1]`       |     `*(a + 1)`     |  10   |
-|       `a[2]`       |     `*(a + 0)`     |  15   |
+|       `a[2]`       |     `*(a + 2)`     |  15   |
 |       `a[3]`       |     `*(a + 3)`     |  20   |
 
 Using the same access notation we can also *modify* the array values. For example, `*(a + 1) = 100` will be equivalent to `a[1] = 100`. After this operation `a` becomes `{5, 100, 15, 20}`.
@@ -179,7 +179,10 @@ void main()
 
 ## Passing Array to Function
 
+There are two ways of passing an array to a function.
 
+- passing the array name
+- passing a pointer to the array
 
 ## Pointers to String
 
@@ -225,8 +228,20 @@ int *p_msg = "That's what she said.";
 p_msg[5] = 'z'; // error: seg fault
 ```
 
+## Structure Pointers
 
+A structure pointer is a pointer pointing to a structure, meaning that it is the address of the beginning of a structure. We can obtain it using the 'address of' `&` operator on a structure variable and store it in a pointer variable of the same structure type.
 
-## Pointers to Structure
+```c
+struct Thing {
+    int member1, member2;
+};
+
+struct Thing t = { 10, 20 };
+struct Thing *p = &t; // p refers to t
+```
+
+Note: A pointer to a struct can be cast to a pointer to its first member. Likewise, a pointer to the first member of a struct can be cast to a pointer to the enclosing struct. 
 
 ## Pointers within Structure
+
