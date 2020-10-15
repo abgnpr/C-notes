@@ -28,6 +28,8 @@ A stream is basically a sequence of data. It's a logical entity through which al
 
 A stream can be thought of as a channel connecting a processor/logic unit (where data is processed according to the instructions) and the file or device from which input/output is taking place.
 
+> **Rationale**
+>
 > The people designing C wanted a uniform way of interfacing with different sources of sequential data, like files, sockets, keyboards, USB ports, printers or whatever.
 >
 > So they designed one interface that could be applied to all of them. This interface uses properties that are common to all of them.
