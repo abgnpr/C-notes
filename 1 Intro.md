@@ -293,17 +293,136 @@ A **variable**, or an identified object, is a location in memory that can hold v
 
 A variable has a *storage class* and *scope*; storage class specifies the variable's lifetime and scope is the region of the program in which it is known. It also has a linkage which determines whether the same name in another scope refers to the same object or function.
 
-##### Scope and Life of a Variable
+#### Scope of a Variable
 
-- local
-- global
+Scope refers to what parts of the program can “see” a declared variable. A declared variable can be visible only within a particular function, or within a particular file, or may be visible to an entire set of files by way of including header files and using `extern` declarations.
 
-##### Storage class specifier
+C has the following kinds of scopes:
+
+##### Global (File Scope)
+
+Global declarations are declarations made at the top-level of a file (i.e., not within a function). Their scope begins at the point of declaration and ends at the end of the file. They are visible to the entire file, including from within functions, but are not visible outside of the file.
+
+```c
+int i; // scope of i begins
+
+// scope of g begins (note, "a" has block scope)
+static int g(int a) { return a; }
+
+int main(void)
+{
+    i = g(2); // i and g are in scope
+}
+```
+
+##### Local
+
+Variable declarations made within functions, function prototypes or blocks have local scope, meaning that they are visible only within the respective entity in which they have been declared.
+
+- **Block Scope**
+
+  The scope of any variable or identifier declared inside a compound statement, including function bodies, or in any expression, declaration, or statement appearing in if, switch, for, while, or do-while statement, or within the parameter list of a function definition begins at the point of declaration and ends at the end of the block or statement in which it was declared.
+
+- **Function Scope**
+
+  The scope of any variable or identifier declared within the parameter list of a function definition begins and ends with the block of the function definition.
+
+  ```c
+  void f(int n) // scope of the function parameter 'n' begins
+  { // the body of the function begins
+     
+     ++n; // 'n' is in scope and refers to the function parameter
+     
+     for(int n = 0; n<10; ++n) { // scope of loop-local 'n' begins
+         printf("%d\n", n); // prints 0 1 2 3 4 5 6 7 8 9
+     } // scope of the loop-local 'n' ends
+     
+     // the function parameter 'n' is back in scope
+     printf("%d\n", n); // prints the value of the parameter
+     
+  } // scope of function parameter 'n' ends
+  
+  int a = n; // Error: name 'n' is not in scope
+  ```
+
+- **Function Prototype Scope**
+
+  The scope of a name introduced in the parameter list of a function prototype (declaration that is not a definition) ends at the end of the function prototype declarator.
+
+  ```c
+  int f(int n,
+        int a[n]); // n is in scope and refers to the first parameter
+  ```
+
+#### Storage class specifier
+
+There are four storage class specifiers that you can prepend to your variable declarations which change how the variables are stored in memory: `auto`, `extern`, `register`, and `static`.
 
 - `auto`
+
+  You use `auto` for variables which are local to a function, and whose values should be discarded upon return from the function in which they are declared. This is the default behavior for variables declared within functions.
+
+  ```c
+  void foo (int value) {
+    auto int x = value;
+    // …
+    return;
+  }
+  ```
+
 - `extern`
+
+  `extern` is useful for declaring variables that you want to be visible to all source files that are linked into your project. You cannot initialise a variable in an `extern` declaration, as no space is actually allocated during the declaration. You must make both an `extern` declaration (typically in a header file that is included by the other source files which need to access the variable) and a non-`extern` declaration which is where space is actually allocated to store the variable. The `extern` declaration may be repeated multiple times.
+
+  ```c
+  extern int numberOfClients;
+  …
+  int numberOfClients = 0;
+  ```
+
 - `static`
+
+  `static` is essentially the opposite of `auto`: when applied to variables within a function or block, these variables will retain their value even when the function or block is finished. This is known as *static storage duration*.
+
+  ```c
+  #include <stdio.h>
+  
+  int* f() { 
+    static int n = 20;
+    return &n; 
+  }
+  
+  void main() {
+    int *ptr_to_that_n = f();
+    printf("%d\n", *ptr_to_that_n); // -> 20
+  }
+  ```
+
 - `register`
+
+  `register` is nearly identical in purpose to `auto`, except that it also suggests to the compiler that the variable will be heavily used, and, if possible, should be stored in a register. You cannot use the address-of operator to obtain the address of a variable declared with `register`. This means that you cannot refer to the elements of an array declared with storage class `register`. In fact the only thing you can do with such an array is measure its size with `sizeof`. GCC normally makes good choices about which values to hold in registers, and so `register` is not often used.
+
+#### Lifetime (storage duration) of a Variable
+
+The lifetime of a variable or object is the time period in which the variable/object has valid memory. It can be of the following three types:
+
+- **Static**
+
+  Lifetime of a static variable is the entire duration of the program's execution.
+
+  Static variables are stored in the data segment of the "object file" of a program.
+
+- **Automatic**
+
+  An automatic variable has a lifetime that begins when program execution enters the function or statement block or compound and ends when execution leaves the block. 
+
+  Automatic variables are stored in a "function call stack".
+
+- **Dynamic** 
+
+  The lifetime of a dynamic object begins when memory is allocated for the object (e.g., by a call to `malloc()` or using `new`) and ends when memory is de-allocated (e.g., by a call to `free()`). 
+
+  Dynamic objects are stored in "the heap".
 
 ### Constants
 
@@ -617,6 +736,22 @@ extern long int a = 10, b = 20;
 // |    |_type qualifier
 // |_storage class specifier
 ```
+
+Note that a declaration is not visible to declarations that came before it; for example:
+
+```c
+int x = 5;
+int y = x + 10;
+```
+
+will work, but:
+
+```c
+int x = y + 10;
+int y = 5;
+```
+
+will not.
 
 ## Expressions
 
