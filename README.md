@@ -1,2 +1,2 @@
 # C-notes
-Notes for C Language  —  degree major paper 3
+Notes for C Language
