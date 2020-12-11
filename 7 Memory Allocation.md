@@ -16,7 +16,7 @@ There are three different types of memory allocation:
 - Automatic
 - Dynamic
 
-The C language supports the first two kinds of memory allocation (static and dynamic) through variables. The third kind, *dynamic allocation*, is not supported by C variables but is available via GNU C Library functions and is mend to be used with the help of pointers.
+The C language supports the first two kinds of memory allocation (static and automatic) through variables. The third kind, *dynamic allocation*, is not supported by C variables but is available via GNU C Library functions and is mend to be used with the help of pointers.
 
 We'll see dynamic memory allocation in detail along with the library functions that are used to achieve it.
 
@@ -30,7 +30,7 @@ Statically allocated objects get their memory in the permanent storage area. ([S
 
 Automatic allocation happens when you declare an automatic variable, such as a function argument or a local variable. The space for an automatic variable is allocated when the compound statement containing the declaration is entered, and is freed when that compound statement is exited.
 
-Dynamically allocated objects are stored on the stack. ([See image](#alloc-overview))
+Automatically allocated objects are stored on the stack. ([See image](#alloc-overview))
 
 ### Dynamic Allocation
 
@@ -79,7 +79,7 @@ We use dynamic memory allocation in the following cases.
 2. When we want data structures without any upper limit of memory space.
 3. When you want to use your memory space more efficiently. Example: If you have allocated memory space for a 1-D array as array[20] and you end up using only 10 memory spaces then the remaining 10 memory spaces would be wasted and this wasted memory cannot even be utilised by other program variables.
 4. Dynamically created lists insertions and deletions can be done very easily just by the manipulation of addresses whereas in case of statically allocated memory insertions and deletions lead to more movements and wastage of memory.
-5. When you want you to use the concept of structures and linked list in programming, dynamic memory allocation is a must
+5. When you want to use the concept of structures and linked list in programming, dynamic memory allocation is a must
 
 
 

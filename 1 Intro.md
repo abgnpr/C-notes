@@ -520,9 +520,37 @@ Operators are special symbols used to do common operations on the given data.
 
 A unary operator works on one operand, a binary operator works on two operands, a ternary operator works on three operands and so on.
 
-Precedence
+##### Precedence
 
-Associativity
+Operator precedence determines the grouping of terms in an expression and decides how an expression is evaluated. Certain operators have higher precedence than others; for example, the multiplication operator has a higher precedence than the addition operator.  Within an expression, higher precedence operators will be evaluated first.
+
+For example, x = 7 + 3 * 2; here, x is assigned 13, not 20 because operator * has a higher precedence than +, so it first gets multiplied with 3*2 and then adds into 7.
+
+Here, operators with the highest precedence appear at the top of the table, those with the lowest appear at the bottom.
+
+|    Category    |             Operator              | Associativity |
+| :------------: | :-------------------------------: | :-----------: |
+|    Postfix     |         () [] -> . ++ - -         | Left to right |
+|     Unary      |  + - ! ~ ++ - - (type)* & sizeof  | Right to left |
+| Multiplicative |               * / %               | Left to right |
+|    Additive    |                + -                | Left to right |
+|     Shift      |               << >>               | Left to right |
+|   Relational   |             < <= > >=             | Left to right |
+|    Equality    |               == !=               | Left to right |
+|  Bitwise AND   |                 &                 | Left to right |
+|  Bitwise XOR   |                 ^                 | Left to right |
+|   Bitwise OR   |                \|                 | Left to right |
+|  Logical AND   |                &&                 | Left to right |
+|   Logical OR   |               \|\|                | Left to right |
+|  Conditional   |                ?:                 | Right to left |
+|   Assignment   | = += -= *= /= %=>>= <<= &= ^= \|= | Right to left |
+|     Comma      |                 ,                 | Left to right |
+
+##### Associativity
+
+The associativity of an operator is a property that determines how operators of the same precedence are grouped in the absence of parentheses.
+
+Operators may be **associative** (meaning the operations can be grouped arbitrarily), **left-associative** (meaning the operations are grouped from the left), **right-associative** (meaning the operations are grouped from the right) or **non-associative** (meaning operations cannot be chained, often because the output type is incompatible with the input types).
 
 #### Arithmetic
 

@@ -121,7 +121,7 @@ There are two ways of initialising structure variables.
    
    // initializing piece-wise
    A.attrib1 = 10;
-   A.attrib2 = 12.25;
+   A.attrib2 = 'M';
    
    ```
 
@@ -369,11 +369,33 @@ A pointer to a union can be cast to a pointer to each of its members. Likewise, 
 
 If the member used to access the contents of a union is not the same as the member last used to store a value, the object representation of the value that was stored is reinterpreted as an object representation of the new type (this is known as *type punning*). If the size of the new type is larger than the size of the last-written type, the contents of the excess bytes are unspecified (and may be a trap representation).
 
-# Struct vs. Union
+```c
+#include <stdio.h>
+#include <string.h>
+ 
+union Data {
+   int i;
+   float f;
+   char str[20];
+};
+ 
+int main( ) {
 
-| Struct                                                       | Union                                                        |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| A struct is a type consisting of a sequence of members whose storage is allocated in an ordered sequence. | A union is a type consisting of a sequence of members whose storage overlaps. |
-| All members have separate storage locations and all of them can be accommodated at once inside a struct. | The value of at most one of the members can be stored in a union at any one time. |
-|                                                              |                                                              |
+   union Data data;        
+
+   printf( "Memory size occupied by data : %d\n", sizeof(data));
+
+   return 0;
+}
+```
+
+```
+Memory size occupied by data : 20
+```
+
+# Questions
+
+- Differentiate between structure and union.
+
+  -> Use points from the above explanations.
 

@@ -497,13 +497,12 @@ for (init_clause; cond_expression; iteration_expression) {
 
   - If it is an expression, it is evaluated once and its result is discarded.
 
-  - If it is a declaration, it is in scope in the entire loop body, including the remainder of `init_clause`, the entire `cond_expression`, the entire `iteration_expression` and the entire loop body.
+  - If it is a declaration, it is in scope in the entire loop body, including the remainder of `init_clause`, the entire `cond_expression`, and the entire `iteration_expression`.
 
 - `cond_expression` is evaluated next.
-
-  - If it evaluates to true, execution of the loop body follows.
+- If it evaluates to true, execution of the loop body follows.
   - If the result of the expression is zero, the loop statement is exited immediately.
-
+  
 - `iteration_expression` is evaluated after the loop body and its result is discarded. 
 
 - After evaluating `iteration_expression`, control is transferred to `cond_expression`.
@@ -643,7 +642,7 @@ Used to terminate the enclosing for, while or do-while loop or switch statement.
   // prints integers 10 to 5
   int n = 10;
 while (1) {
-      printf("%d ", n);
+      printf("%d ", n--);
       if (n == 5)
           break;
   }

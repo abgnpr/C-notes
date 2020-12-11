@@ -61,10 +61,10 @@ The various parts in a function definition are as follows.
 - **Parameters:** are identifiers that specify the type and number of values that a function will accept. We can also say that parameters are variables in which the function receives and stores the data that's supplied to it and later on operates on them to perform some tasks. 
 
   - Parameters, along with their respective types, are written in brackets `()` after the function name.
-- A function accepts values in the order of the specified parameters. If the values supplied do not match in type, order or number, it gives an error.
+  - A function accepts values in the order of the specified parameters. If the values supplied do not match in type, order or number, it gives an error.
   
   - Parameters have meaning only inside the function to which they belong, which means they are local to the function. 
-- Any change to the parameters inside the function do not have any effect on the values or variables of the caller function.   
+  - Any change to the parameters inside the function do not have any effect on the values or variables of the caller function.   
   
 - **Body:** is a compound statement that holds the steps to achieve the goal of the function. It may have a return statement, which is necessary if the function is expected to give some result back to the caller. 
 
@@ -193,7 +193,18 @@ int main(int argc, char *argv[]) {
 }
 ```
 
-where, `argc` (arguments count) is the number of arguments passed to the program and `argv` (argument values) is pointer to the first element of an array of `argc + 1` pointers, of which the last one is null and the previous ones, if any, point to strings that represent the arguments passed.
+where, `argc` (arguments count) is the number of arguments passed to the program and `argv` (argument vector) is a pointer to the first element of an array of `argc + 1` pointers. The first element of this array `argv[0]` points to a string representing the name of the program and the rest, if any, point to strings that represent the arguments passed to the program.
+
+```c
+#include <stdio.h>
+void main(int argc, const char *argv[])
+{
+  for (int i = 0; i < argc; i++) {
+    fputs(argv[i], stdout);
+    putchar('\n');
+  }
+}
+```
 
 [^1]: the declarators `f()` and `f(void)` have different meaning: the declarator `f(void)` is a new-style (prototype) declarator that declares a function that takes no parameters. The declarator `f()` is an old-style (K&R) declarator that declares a function that takes *unspecified* number of parameters.
 

@@ -255,7 +255,7 @@ We can calculate the size of an array by dividing its total size in bytes with t
 int arr[5];
 int s1 = sizeof arr / sizeof int;
 int s2 = sizeof arr / sizeof arr[0];
-int s3 = sizeof arr /  *arr;
+int s3 = sizeof arr / sizeof *arr;
 ```
 
 ## Character Array (String)
@@ -296,6 +296,12 @@ Character arrays can be initialised in two ways.
 
 `string.h` header has many useful functions for manipulating character arrays. It offers convenience functions for usual string operations like finding length, comparing, copying, and concatenating.
 
+The string library is a large one, and basically, it has three types of functions:
+
+- the `str` functions manipulate null-terminated sequences of characters;
+- the `strn` functions manipulate sequences of non-null characters.
+- the `mem` functions manipulate sequences of arbitrary characters without regard to the null character;
+
 Some commonly used functions are listed here:
 
 - `strcat` - concatenate two strings :heavy_check_mark:
@@ -315,17 +321,61 @@ We'll see a little more about the ticked ones.
 
 #### `strcat`
 
-#### `strcmp`
+This function appends a copy of the null-terminated byte string pointed to by `src` to the end of the null-terminated byte string pointed to by `dest`. The character `src[0]` replaces the null terminator at the end of `dest`. The resulting byte string is null-terminated.
 
-#### `strcpy`
+Prototype 
+
+`char *strcat( char *dest, const char *src );`
+
+Usage Syntax
+
+`strcat(dst, src);`
 
 #### `strlen`
 
-The string library is a large one, and basically, it has three types of functions:
+This function returns the length of the given null-terminated byte string, that is, the number of characters in a character array whose first element is pointed to by `str` up to and not including the first null character.
 
-- the `str` functions manipulate null-terminated sequences of characters;
-- the `strn` functions manipulate sequences of non-null characters.
-- the `mem` functions manipulate sequences of arbitrary characters without regard to the null character;
+Prototype 
+
+`size_t strlen( const char *str );`
+
+Usage Syntax
+
+`strlen(str);`
+
+where, `str` is  
+
+The behavior is undefined if `str` is not a pointer to a null-terminated byte string.
+
+#### `strcpy`
+
+This function copies the null-terminated byte string pointed to by `src`, including the null terminator, to the character array whose first element is pointed to by `dest`
+
+Prototype
+
+`char *strcpy( char *dest, const char *src );`
+
+Usage Syntax
+
+`strcpy(dst, src);`
+
+#### `strcmp`
+
+This function compares two null-terminated byte strings lexicographically.
+
+Prototype
+
+`int strcmp( const char *lhs, const char *rhs );`
+
+Usage Syntax
+
+`strcmp(lhs, rhs)`
+
+Return Value
+
+- Negative value if `lhs` appears before `rhs` in lexicographical order.
+- Zero if `lhs` and `rhs` compare equal.
+- Positive value if `lhs` appears after `rhs` in lexicographical order.
 
 ## Appendix
 
